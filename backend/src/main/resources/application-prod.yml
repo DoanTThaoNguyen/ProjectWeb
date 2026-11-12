@@ -1,0 +1,10 @@
+# Profile production: KHONG seed tai khoan demo. Moi bi mat lay tu bien moi truong.
+app:
+  seed-demo: false
+server:
+  error:
+    include-message: always
+    include-stacktrace: never
+logging:
+  level:
+    root: INFO
