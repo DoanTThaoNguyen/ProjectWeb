@@ -1,0 +1,6 @@
+# Profile development/demo: bat seed du lieu demo (tai khoan, thuc don, don mau).
+app:
+  seed-demo: true
+logging:
+  level:
+    vn.tiecnha: DEBUG
