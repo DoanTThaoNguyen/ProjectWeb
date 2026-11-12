@@ -328,7 +328,10 @@ public class BookingService {
         if (BookingWorkflow.allowed(s, BookingStatus.IN_PROGRESS, Actor.BACKOFFICE)) a.add("START");
         if (BookingWorkflow.allowed(s, BookingStatus.COMPLETED, Actor.BACKOFFICE)) a.add("COMPLETE");
         if (BookingWorkflow.allowed(s, BookingStatus.CANCELLED, Actor.BACKOFFICE)) a.add("CANCEL");
-        if (b.getAcceptedQuoteId() != null && s != BookingStatus.QUOTED) a.add("RECORD_PAYMENT");
+        if (b.getAcceptedQuoteId() != null && s != BookingStatus.CANCELLED) a.add("RECORD_PAYMENT");
+        boolean hasPaid = payments.findByBookingIdOrderByPaidAtAscIdAsc(b.getId()).stream().anyMatch(p -> p.getType() != Payment.Type.REFUND);
+        if (hasPaid) a.add("RECORD_REFUND");
+        if (b.isCancelRequested() && s != BookingStatus.CANCELLED) a.add("HANDLE_CANCEL_REQUEST");
         if (s == BookingStatus.CONFIRMED || s == BookingStatus.IN_PROGRESS || s == BookingStatus.AWAITING_DEPOSIT) a.add("ASSIGN");
         return a;
     }

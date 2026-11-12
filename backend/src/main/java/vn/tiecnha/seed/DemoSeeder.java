@@ -328,6 +328,7 @@ public class DemoSeeder implements ApplicationRunner {
 
     private User coord;
     private int seq = 1;
+    private int paySeq = 1;
 
     private void seedBookings() {
         User khach = users.findByEmailIgnoreCase("khach@tiecnha.vn").orElse(null);
@@ -425,7 +426,7 @@ public class DemoSeeder implements ApplicationRunner {
         b7.setPaymentStatus(PaymentStatus.DEPOSIT_PAID);
         assign(b7, st.get("Ngô Thị Hồng"), Skill.CHEF, "Bếp chính buffet", AssignmentTaskStatus.IN_PROGRESS);
         assign(b7, st.get("Bùi Thị Mai"), Skill.ASSISTANT_CHEF, "Phụ bếp, châm món", AssignmentTaskStatus.IN_PROGRESS);
-        assign(b7, st.get("Huỳnh Gia Huy"), Skill.SERVER, "Đứng quầy đồ uống", AssignmentTaskStatus.CONFIRMED);
+        assign(b7, st.get("Võ Thị Lan"), Skill.SERVER, "Đứng quầy đồ uống", AssignmentTaskStatus.CONFIRMED);
         assign(b7, st.get("Mai Văn Đức"), Skill.DRIVER, "Vận chuyển dụng cụ buffet", AssignmentTaskStatus.DONE);
         b7.setAssignmentStatus(AssignmentStatus.ASSIGNED);
 
@@ -609,7 +610,7 @@ public class DemoSeeder implements ApplicationRunner {
         p.setReferenceCode(ref);
         p.setPaidAt(at(Math.max(daysAgo, 0)));
         p.setRecordedBy(coord.getId());
-        p.setIdempotencyKey("seed-" + b.getCode() + "-" + type + "-" + (seq++));
+        p.setIdempotencyKey("seed-" + b.getCode() + "-" + type + "-" + (paySeq++));
         payments.save(p);
     }
 

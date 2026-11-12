@@ -107,3 +107,48 @@ export function PageHeader({ title, subtitle, crumbs }: { title: string; subtitl
     </div>
   )
 }
+
+export function Pagination({ page, totalPages, totalItems, onPage }: { page: number; totalPages: number; totalItems: number; onPage: (p: number) => void }) {
+  if (totalItems === 0) return null
+  return (
+    <div className="pager">
+      <span className="muted small">
+        Trang {page + 1}/{Math.max(totalPages, 1)} · {totalItems} kết quả
+      </span>
+      <div className="row" style={{ gap: 6 }}>
+        <button className="btn btn-ghost btn-sm" disabled={page <= 0} onClick={() => onPage(page - 1)}>
+          ← Trước
+        </button>
+        <button className="btn btn-ghost btn-sm" disabled={page + 1 >= totalPages} onClick={() => onPage(page + 1)}>
+          Sau →
+        </button>
+      </div>
+    </div>
+  )
+}
+
+export function Modal({ title, onClose, children, wide, busy }: { title: string; onClose: () => void; children: ReactNode; wide?: boolean; busy?: boolean }) {
+  return (
+    <div className="modal-back" role="dialog" aria-modal="true" aria-label={title} onClick={() => !busy && onClose()}>
+      <div className={`modal ${wide ? 'modal-lg' : ''}`} onClick={(e) => e.stopPropagation()}>
+        <div className="modal-head">
+          <h3>{title}</h3>
+          <button className="modal-x" onClick={onClose} disabled={busy} aria-label="Đóng">
+            ×
+          </button>
+        </div>
+        {children}
+      </div>
+    </div>
+  )
+}
+
+/** Khoa chong ghi trung cho moi lan mo form ghi nhan thanh toan. */
+// eslint-disable-next-line react-refresh/only-export-components
+export function newIdemKey(): string {
+  try {
+    return crypto.randomUUID()
+  } catch {
+    return Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 12)
+  }
+}

@@ -24,3 +24,4 @@ Thumbs.db
 
 # Trang boc chup man hinh mobile (chi dung khi kiem thu)
 frontend/public/__m.html
+frontend/public/__login.html

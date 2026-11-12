@@ -51,3 +51,19 @@ export const QUOTE_STATUS: Record<string, { label: string; tone: string }> = {
   ACCEPTED: { label: 'Đã chấp nhận', tone: 'ok' },
   SUPERSEDED: { label: 'Đã thay thế', tone: 'muted' },
 }
+
+export const ITEM_TYPE: Record<string, string> = { MENU: 'Thực đơn', ADDON: 'Dịch vụ thêm', FEE: 'Phí khác', DISCOUNT: 'Giảm giá' }
+export const CHARGE_TYPE: Record<string, string> = { FIXED: 'Trọn gói', PER_GUEST: 'Theo khách', PER_TABLE: 'Theo bàn' }
+export const TASK_NEXT_LABEL: Record<string, string> = { CONFIRMED: 'Nhận việc', IN_PROGRESS: 'Bắt đầu làm', DONE: 'Báo hoàn thành' }
+export const SETTING_LABEL: Record<string, { label: string; unit: string }> = {
+  prep_minutes: { label: 'Thời gian chuẩn bị trước tiệc', unit: 'phút' },
+  teardown_minutes: { label: 'Thời gian thu dọn sau tiệc', unit: 'phút' },
+  deposit_percent: { label: 'Tỷ lệ cọc mặc định', unit: '%' },
+  quote_valid_days: { label: 'Hiệu lực báo giá mặc định', unit: 'ngày' },
+  min_lead_hours: { label: 'Khách đặt trước tối thiểu', unit: 'giờ' },
+}
+export const ACTION_LABEL: Record<string, string> = {
+  TO_CONSULTING: 'Tiếp nhận & tư vấn',
+  START: 'Bắt đầu thực hiện',
+  COMPLETE: 'Xác nhận hoàn tất',
+}

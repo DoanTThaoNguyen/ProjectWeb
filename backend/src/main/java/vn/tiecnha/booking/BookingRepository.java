@@ -32,13 +32,15 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
             where (:status is null or b.status = :status)
               and (:from is null or b.startTime >= :from)
               and (:to is null or b.startTime < :to)
+              and (:cancelReq is null or (b.cancelRequested = :cancelReq and b.status <> vn.tiecnha.booking.BookingStatus.CANCELLED))
               and (:q is null or lower(b.code) like lower(concat('%', :q, '%'))
                    or lower(b.contactName) like lower(concat('%', :q, '%'))
                    or b.contactPhone like concat('%', :q, '%')
                    or lower(b.customer.email) like lower(concat('%', :q, '%')))
             """)
     Page<Booking> search(@Param("q") String q, @Param("status") BookingStatus status,
-                         @Param("from") LocalDateTime from, @Param("to") LocalDateTime to, Pageable pageable);
+                         @Param("from") LocalDateTime from, @Param("to") LocalDateTime to,
+                         @Param("cancelReq") Boolean cancelReq, Pageable pageable);
 
     @EntityGraph(attributePaths = {"service"})
     List<Booking> findByStartTimeBetweenAndStatusInOrderByStartTime(LocalDateTime from, LocalDateTime to, Collection<BookingStatus> statuses);
