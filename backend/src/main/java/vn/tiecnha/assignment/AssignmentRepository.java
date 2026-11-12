@@ -11,6 +11,9 @@ public interface AssignmentRepository extends JpaRepository<Assignment, Long> {
     @EntityGraph(attributePaths = {"staff", "booking"})
     List<Assignment> findByBookingIdOrderByShiftStart(Long bookingId);
 
+    @EntityGraph(attributePaths = {"staff", "booking", "booking.service"})
+    java.util.Optional<Assignment> findWithAllById(Long id);
+
     /** Giao nhau khi startA < endB va startB < endA; bo qua phan cong da huy. */
     @EntityGraph(attributePaths = {"booking"})
     @Query("""

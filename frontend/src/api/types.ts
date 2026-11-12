@@ -224,3 +224,164 @@ export interface Page<T> {
   totalItems: number
   totalPages: number
 }
+
+// ---------- Dieu phoi / quan tri / nhan vien ----------
+
+export type Skill = 'CHEF' | 'ASSISTANT_CHEF' | 'SERVER' | 'SETUP' | 'DRIVER'
+
+export interface QuoteItemInput {
+  itemType: QuoteItem['itemType']
+  description: string
+  quantity: number
+  unit: string
+  unitPrice: number
+}
+
+export interface QuoteInput {
+  items: QuoteItemInput[]
+  depositAmount: number | null
+  validUntil: string
+  notes: string | null
+  terms: string | null
+  send: boolean
+}
+
+export interface ScheduleConflict {
+  assignmentId: number
+  bookingId: number
+  bookingCode: string
+  task: string
+  shiftStart: string
+  shiftEnd: string
+}
+
+export interface StaffSuggestion {
+  staffId: number
+  fullName: string
+  phone: string | null
+  skills: Skill[]
+  hasSkill: boolean
+  free: boolean
+  conflicts: ScheduleConflict[]
+  shiftsThisWeek: number
+  alreadyOnBooking: boolean
+}
+
+export interface DefaultShift {
+  shiftStart: string
+  shiftEnd: string
+  prepMinutes: number
+  teardownMinutes: number
+}
+
+export interface AssignmentFull {
+  id: number
+  bookingId: number
+  bookingCode: string
+  bookingStatus: BookingStatus
+  serviceName: string
+  menuName: string
+  address: string
+  contactName: string
+  contactPhone: string
+  guestCount: number
+  tableCount: number | null
+  partyStart: string
+  partyEnd: string
+  staffId: number
+  staffName: string
+  staffPhone: string | null
+  taskRole: Skill
+  task: string
+  shiftStart: string
+  shiftEnd: string
+  status: string
+  note: string | null
+  bookingNote: string | null
+  teammates: { name: string; phone: string | null; taskRole: Skill; task: string }[]
+  nextStatuses: string[]
+}
+
+export interface StaffMember {
+  id: number
+  fullName: string
+  phone: string | null
+  email: string | null
+  active: boolean
+  note: string | null
+  skills: Skill[]
+  userId: number | null
+  accountEmail: string | null
+  accountActive: boolean | null
+}
+
+export interface Dashboard {
+  from: string
+  to: string
+  newRequests: number
+  pendingNew: number
+  pendingCancelRequests: number
+  awaitingDeposit: number
+  eventsInRange: number
+  statusCounts: Record<BookingStatus, number>
+  orderValue: number
+  completedRevenue: number
+  collected: number
+  depositCollected: number
+  balanceCollected: number
+  refunded: number
+  netCollected: number
+  receivable: number
+  granularity: 'day' | 'month'
+  series: { label: string; orderValue: number; collected: number; events: number }[]
+  upcoming: {
+    id: number
+    code: string
+    serviceName: string
+    contactName: string
+    startTime: string
+    endTime: string
+    address: string
+    guestCount: number
+    status: BookingStatus
+    paymentStatus: string
+    assignmentStatus: string
+    staffCount: number
+  }[]
+}
+
+export interface UserRow {
+  id: number
+  email: string
+  phone: string | null
+  fullName: string
+  role: Role
+  active: boolean
+  createdAt: string
+  staffId: number | null
+}
+
+export interface Setting {
+  key: string
+  value: string
+  description: string | null
+}
+
+export interface AuditRow {
+  id: number
+  actorName: string | null
+  actorEmail: string | null
+  action: string
+  entity: string
+  entityId: number | null
+  detail: string | null
+  createdAt: string
+}
+
+export interface DishCategory {
+  id: number
+  name: string
+  sortOrder: number
+  active: boolean
+  dishCount: number
+}
